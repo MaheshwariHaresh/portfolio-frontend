@@ -1,0 +1,10 @@
+.portfolio-card {
+  transition: transform 0.3s ease;
+}
+.portfolio-card:hover {
+  transform: scale(1.05);
+}
+.share-icon:hover {
+  background-color: #ffffff40;
+  transform: scale(1.1);
+}

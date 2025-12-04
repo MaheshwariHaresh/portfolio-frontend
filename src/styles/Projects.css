@@ -1,0 +1,47 @@
+/* Main container */
+.projects-container {
+  padding: 60px;
+  color: white;
+}
+
+/* Section Title */
+.section-title {
+  color: white;
+  margin-bottom: 60px;
+  letter-spacing: 1px;
+  font-size: calc(1.325rem + 0.9vw);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(to right, #f0f, #0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grid for project cards */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 20px 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .projects-container {
+    padding: 40px;
+  }
+  .section-title {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-container {
+    padding: 20px;
+  }
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
