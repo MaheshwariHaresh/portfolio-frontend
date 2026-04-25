@@ -3,16 +3,16 @@ import Tooltip from "@mui/material/Tooltip";
 
 const Technology = () => {
   const skills = [
-    "react.svg",
-    "html.svg",
-    "css.svg",
-    "js.svg",
-    "node.svg",
-    "bootstrap.svg",
-    "postman.svg",
-    "github.svg",
-    "express.svg",
-    "npm.svg",
+    { title: "React.js", icon: "react.svg" },
+    { title: "HTML", icon: "html.svg" },
+    { title: "Javascript", icon: "js.svg" },
+    { title: "CSS", icon: "css.svg" },
+    { title: "Node.js", icon: "node.svg" },
+    { title: "Bootstrap", icon: "bootstrap.svg" },
+    { title: "Postman", icon: "postman.svg" },
+    { title: "Github", icon: "github.svg" },
+    { title: "Express.js", icon: "express.svg" },
+    { title: "npm.js", icon: "npm.svg" },
   ];
 
   return (
@@ -31,16 +31,11 @@ const Technology = () => {
 
       {/* Icons Grid */}
       <div className="tech-grid">
-        {skills.map((icon, index) => (
-          <Tooltip
-            key={index}
-            title={icon.split(".")[0].toUpperCase()}
-            arrow
-            placement="top"
-          >
+        {skills.map((item, index) => (
+          <Tooltip key={index} title={item.title} arrow placement="top">
             <img
-              src={`/icons/${icon}`}
-              alt={icon.split(".")[0]}
+              src={`/icons/${item.icon}`}
+              alt={item.title}
               className="tech-icon"
             />
           </Tooltip>

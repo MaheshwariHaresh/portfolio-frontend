@@ -2,10 +2,10 @@ import { CopyrightSharp } from "@mui/icons-material";
 
 const Footer = () => {
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="footer">
       <div className="container text-center">
         <p>
-          <CopyrightSharp sx={{ margin: 1 }} />
+          <CopyrightSharp sx={{ margin: 1, color: "#ccc" }} />
           2024-All rights reserved, web design and development-haresh kumar
         </p>
       </div>

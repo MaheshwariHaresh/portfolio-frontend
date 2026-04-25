@@ -1,0 +1,60 @@
+:root {
+  --bg-color: #0d0d2b;
+  --text-color: #ffffff;
+  --text-color-gray: #ccc;
+
+  /* home page variables (dark mode) */
+  --home-page-bg: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  --home-text-color: white;
+  --home-page-desc-text: #cfcfcf;
+
+  /* navbar variables (dark mode) */
+  --navbar-bg: rgba(255, 255, 255, 0.1);
+  --navbar-border: white;
+  --navbar-brand: white;
+  --navbar-link: white;
+
+  /* Services page variables(dark mode)*/
+  --service-card-bg: #151538;
+  --service-card-border: #444;
+
+  /* Contact page variables(dark mode)*/
+  --contact-page-bg: #0b0d1775;
+  --contact-form-input-bg: #0d0d2b;
+  --contact-form-input-border: rgba(168, 171, 199, 0.22);
+}
+
+/*==========================================
+============= Light mode overrides
+============================================ */
+:root[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --text-color-gray: #111111;
+
+  /* home page variables (dark mode) */
+  --home-page-bg: #ffffff;
+  --home-text-color: #111;
+  --home-page-desc-text: #111;
+
+  /* Navbar Light Mode */
+  --navbar-bg: rgba(0, 0, 0, 0.05);
+  --navbar-border: #111;
+  --navbar-brand: #111;
+  --navbar-link: #111;
+
+  /* Services page variables(light mode)*/
+  --service-card-bg: rgba(0, 0, 0, 0.05);
+  --service-card-border: #444;
+
+  /* Contact page variables(light mode)*/
+  --contact-page-bg: rgba(0, 0, 0, 0.05);
+  --contact-form-input-bg: #fff;
+  --contact-form-input-border: #444;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}

@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 25px;
+  color: var(--text-color-gray);
 }
 
 .icon-center {
@@ -54,6 +55,7 @@
 
 .contact-info-box {
   min-width: 200px;
+  color: var(--text-color-gray);
 }
 
 /* LINKS */
@@ -69,6 +71,7 @@ a:hover {
 .contact-right {
   flex: 1;
   min-width: 300px;
+  color: var(--text-color-gray);
 }
 
 .contact-form-title {

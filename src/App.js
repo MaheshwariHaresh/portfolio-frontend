@@ -1,8 +1,13 @@
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import ProjectDetails from "./pages/ProjectDetails";
 const App = () => {
   return (
     <>
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/project-details/:id" element={<ProjectDetails />} />
+      </Routes>
     </>
   );
 };

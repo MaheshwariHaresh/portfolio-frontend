@@ -1,7 +1,20 @@
+import { Link } from "react-router-dom";
 import Card from "../components/Card";
+import { useProject } from "../context/project";
 import "../styles/Projects.css";
+import { useEffect } from "react";
 
 const Projects = () => {
+  const [projects, loading] = useProject();
+
+  useEffect(() => {
+    if (loading) return;
+  }, [projects, loading]);
+
+  if (loading) {
+    return <p className="loading-text">Loading projects...</p>;
+  }
+
   return (
     <div className="projects-container">
       <div>
@@ -11,12 +24,11 @@ const Projects = () => {
       </div>
 
       <div className="projects-grid">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {projects?.map((project) => (
+          <Link key={project._id} to={`/project-details/${project._id}`}>
+            <Card project={project} />
+          </Link>
+        ))}
       </div>
     </div>
   );

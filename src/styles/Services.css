@@ -34,6 +34,10 @@
   color: var(--text-color);
 }
 
+.service-card > p {
+  color: var(--text-color-gray);
+}
+
 /* Alignment */
 .service-card.left {
   align-self: flex-start;

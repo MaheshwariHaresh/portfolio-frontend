@@ -75,13 +75,13 @@ const Home = () => {
         </div>
       </div>
 
-      {pages.map((item) => (
-        <>
+      {pages.map((item, index) => (
+        <div key={index}>
           <hr className="hr-gradient" />
           <section id={item.sectionId} className="sections">
             {item.page}
           </section>
-        </>
+        </div>
       ))}
     </div>
   );

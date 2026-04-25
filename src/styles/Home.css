@@ -52,7 +52,7 @@
 
 .desc-text {
   font-size: 1rem;
-  color: #cfcfcf;
+  color: var(--home-page-desc-text) !important;
   margin-bottom: 20px;
 }
 
@@ -64,6 +64,13 @@
   height: 2px;
   background: linear-gradient(to right, #00ffff, #ff00ff);
   margin: 50px 0; /* space above/below */
+}
+
+/* ===============
+=============footer */
+.footer {
+  padding: 40px;
+  color: var(--text-color-gray);
 }
 
 @media (max-width: 768px) {
