@@ -12,7 +12,7 @@ const ProjectProvider = ({ children }) => {
     const fetchProjects = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/v1/project/projects"
+          "http://localhost:8080/api/v1/project/projects",
         );
         setProjects(data?.projects);
       } catch (err) {
@@ -21,7 +21,7 @@ const ProjectProvider = ({ children }) => {
         setLoading(false);
       }
     };
-    fetchProjects();
+    // fetchProjects();
   }, []);
 
   return (

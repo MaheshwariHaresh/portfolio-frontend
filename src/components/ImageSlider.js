@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import "../styles/ImageSlider.css";
+// import "../styles/ImageSlider.css";
 const ImageSlider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -14,13 +14,13 @@ const ImageSlider = ({ images }) => {
   };
 
   // AUTO SLIDE
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     goToNext();
-  //   }, 5000);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      goToNext();
+    }, 5000);
 
-  //   return () => clearInterval(timer);
-  // }, [currentIndex]);
+    return () => clearInterval(timer);
+  }, [currentIndex]);
 
   return (
     <div className="slider-container">

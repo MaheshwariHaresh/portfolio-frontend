@@ -1,4 +1,4 @@
-import "../styles/Card.css";
+// import "../styles/Card.css";
 import { Share } from "@mui/icons-material";
 
 const Card = ({ project }) => {

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
 import { useProject } from "../context/project";
-import "../styles/Projects.css";
+// import "../styles/Projects.css";
 import { useEffect } from "react";
 
 const Projects = () => {
