@@ -1,24 +1,40 @@
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import ProjectGallery from "../components/ProjectGallery";
+import { HashLink } from "react-router-hash-link";
+import axios from "axios";
+import { useTheme } from "../context/theme";
 
 function ProjectDetails() {
-  const [dark, setDark] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
+  const { slug } = useParams();
+
+  const { theme } = useTheme();
+  const dark = theme === "dark";
   const [progress, setProgress] = useState(0);
   const rootRef = useRef(null);
-  const currentYear = new Date().getFullYear();
+
+  const [project, setProject] = useState(null);
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    setDark(savedTheme === "dark" || (!savedTheme && prefersDark));
+    const fetchProject = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/v1/projects/${slug}`,
+        );
+        setProject(data?.project);
+        console.log(data?.project);
+      } catch (error) {
+        console.error("Error fetching project:", error);
+      }
+    };
 
+    fetchProject();
+  }, [slug]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
-      setScrolled(scrollY > 20);
       setProgress(
         docHeight > 0
           ? Math.min(100, Math.round((scrollY / docHeight) * 100))
@@ -50,10 +66,6 @@ function ProjectDetails() {
     };
   }, []);
 
-  useEffect(() => {
-    window.localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
-
   return (
     <div
       ref={rootRef}
@@ -75,7 +87,7 @@ function ProjectDetails() {
         <article>
           <header className="pt-32 pb-10 max-w-4xl mx-auto px-6">
             <a
-              href="projects.html"
+              href="/#work"
               className="inline-flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors mb-8"
             >
               <svg
@@ -98,34 +110,31 @@ function ProjectDetails() {
 
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span className="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">
-                SaaS
+                Completed
               </span>
               <span className="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">
-                Figma
+                Featured
               </span>
               <span className="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">
-                Tailwind
+                Full Stack Developer
               </span>
-              <span className="text-xs text-zinc-400 ml-1">2025 · 6 weeks</span>
             </div>
 
             <h1 className="reveal font-display font-bold text-4xl md:text-5xl lg:text-6xl text-zinc-900 dark:text-white leading-tight mb-6">
-              Novu — SaaS Dashboard Redesign
+              {project?.title}
             </h1>
 
             <p className="reveal d1 text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed mb-10 max-w-2xl">
-              A complete UX and UI overhaul of a B2B notification management
-              platform — reducing cognitive load, streamlining the core
-              workflow, and converting more trial users into paying customers.
+              {project?.shortDescription}
             </p>
-
+            {/* 
             <div className="reveal d2 grid grid-cols-2 md:grid-cols-4 gap-4 py-8 border-t border-b border-zinc-100 dark:border-zinc-900">
               <div>
                 <p className="text-xs text-zinc-400 uppercase tracking-widest mb-1">
                   Client
                 </p>
                 <p className="font-medium text-zinc-900 dark:text-white text-sm">
-                  Novu Inc.
+                  Teck in Burn.
                 </p>
               </div>
               <div>
@@ -133,7 +142,7 @@ function ProjectDetails() {
                   Role
                 </p>
                 <p className="font-medium text-zinc-900 dark:text-white text-sm">
-                  Lead UI/UX Designer
+                  Full Stack Developer
                 </p>
               </div>
               <div>
@@ -152,119 +161,92 @@ function ProjectDetails() {
                   Figma, HTML/CSS
                 </p>
               </div>
-            </div>
+            </div> */}
           </header>
 
+          {/* Cover image */}
           <div className="max-w-6xl mx-auto px-6 mb-16">
             <div className="reveal photo-frame w-full h-72 md:h-[480px] rounded-3xl">
               <img
-                src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1400&q=80"
-                alt="Novu — SaaS Dashboard redesign hero"
+                src={project?.images[0]?.url}
+                alt={project?.title}
                 loading="eager"
               />
             </div>
           </div>
 
-          <div className="max-w-4xl mx-auto px-6 mb-16">
-            <div className="reveal grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="stat-card bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-5 pl-6">
-                <p className="font-display font-bold text-3xl text-zinc-900 dark:text-white">
-                  −40%
-                </p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">
-                  Cognitive load (SUS score)
-                </p>
-              </div>
-              <div className="stat-card bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-5 pl-6">
-                <p className="font-display font-bold text-3xl text-accent">
-                  +27%
-                </p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">
-                  Trial-to-paid conversion
-                </p>
-              </div>
-              <div className="stat-card bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-5 pl-6">
-                <p className="font-display font-bold text-3xl text-zinc-900 dark:text-white">
-                  −35%
-                </p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">
-                  Support tickets (onboarding)
-                </p>
-              </div>
-              <div className="stat-card bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-5 pl-6">
-                <p className="font-display font-bold text-3xl text-zinc-900 dark:text-white">
-                  4.8/5
-                </p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">
-                  Post-launch NPS
-                </p>
-              </div>
+          {/* Project Overview */}
+          <div className="max-w-3xl mx-auto px-6 pb-4 prose-cs">
+            <h2>Project Overview</h2>
+            <p>{project?.longDescription}</p>
+            {/* Tech Stack */}
+            <p className="text-zinc-500 dark:text-zinc-400 mb-10">
+              Technologies used to build this project.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-3">
+              {project?.techStack?.map((tag, index) => (
+                <span
+                  key={index}
+                  className="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* Project Links */}
+            <div className="flex flex-wrap gap-4 mt-8">
+              {project?.githubLink && (
+                <a
+                  href={project.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-zinc-600 text-zinc-300 font-medium hover:border-[#FF6B2B] hover:text-[#FF6B2B] hover:bg-[#FF6B2B]/5 transition-all duration-300 hover:scale-105"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008 10.95c.58.1.79-.25.79-.56v-2.2c-3.26.7-3.95-1.39-3.95-1.39-.53-1.35-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.18.08 1.8 1.2 1.8 1.2 1.04 1.8 2.74 1.28 3.4.98.1-.76.41-1.28.74-1.57-2.6-.3-5.34-1.3-5.34-5.77 0-1.27.46-2.31 1.2-3.13-.12-.3-.52-1.52.11-3.16 0 0 .98-.31 3.2 1.2a11.2 11.2 0 015.82 0c2.22-1.51 3.2-1.2 3.2-1.2.63 1.64.23 2.86.11 3.16.75.82 1.2 1.86 1.2 3.13 0 4.48-2.74 5.46-5.35 5.76.42.36.8 1.08.8 2.18v3.24c0 .31.21.67.8.56A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z" />
+                  </svg>
+                  GitHub
+                </a>
+              )}
+
+              {project?.liveLink && (
+                <a
+                  href={project.liveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-zinc-600 text-zinc-300 font-medium hover:border-[#FF6B2B] hover:text-[#FF6B2B] hover:bg-[#FF6B2B]/5 transition-all duration-300 hover:scale-105"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 3h7v7m0-7L10 14m-4 0H3v7h7"
+                    />
+                  </svg>
+                  Live Demo
+                </a>
+              )}
             </div>
           </div>
-
-          <div className="max-w-3xl mx-auto px-6 pb-4 prose-cs">
-            <h2>The brief</h2>
-            <p>
-              Novu is a B2B notification infrastructure platform — it lets
-              developers route, manage, and monitor notifications across email,
-              SMS, push, and in-app channels. The product was technically solid,
-              but the dashboard had grown organically over two years without a
-              coherent design strategy. By early 2025, the team were seeing high
-              churn in the 14-day trial window and receiving consistent feedback
-              that the platform was "powerful but overwhelming."
-            </p>
-            <p>
-              My mandate was simple: fix the first-hour experience without
-              rebuilding the product from scratch. The budget was fixed and the
-              engineering team had six weeks to ship.
-            </p>
-            <blockquote>
-              <p>
-                "We're losing users in the first 20 minutes. They sign up, see
-                the dashboard, and just bounce. The product does exactly what
-                they need — they just can't find it."
-              </p>
-            </blockquote>
-            <h2>Discovery & research</h2>
-            <h3>User interviews</h3>
-            <p>
-              I ran 9 user interviews with a mix of current paying customers and
-              recently churned trial users. The sessions were 45-minute
-              moderated usability tests combined with post-task interviews. Key
-              findings:
-            </p>
-            <ul>
-              <li>
-                7 of 9 users couldn't locate the "Workflows" section without
-                help during their first session
-              </li>
-              <li>
-                The notification log and the analytics panel were confused for
-                one another by 5 users
-              </li>
-              <li>
-                The sidebar had 14 top-level navigation items — users reported
-                feeling "unsure where to start"
-              </li>
-              <li>
-                Trial users specifically wanted a "get your first notification
-                live" path, not a feature overview
-              </li>
-            </ul>
-            <h3>Heuristic audit</h3>
-            <p>
-              I ran a full Nielsen heuristic evaluation of the existing
-              interface and identified 23 violations across 6 categories. The
-              most critical were around visibility of system status, recognition
-              over recall, and error prevention in the workflow builder.
-            </p>
-          </div>
-
-          <div className="max-w-5xl mx-auto px-6 mb-4">
+          {/* Banner */}
+          {/* <div className="max-w-5xl mx-auto px-6 mb-4">
             <div className="reveal photo-frame w-full h-56 md:h-80 rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1581472723648-909f4851d4ae?w=1200&q=80"
-                alt="Existing dashboard audit — heuristic violations mapped"
+                src={project?.coverImage}
+                alt={project?.title}
                 loading="lazy"
               />
             </div>
@@ -272,10 +254,10 @@ function ProjectDetails() {
               Existing dashboard with heuristic violations annotated during the
               audit phase.
             </p>
-          </div>
-
+          </div> */}
+          {/* Development Highlights */}
           <div className="max-w-3xl mx-auto px-6 pb-4 prose-cs">
-            <h2>Design strategy</h2>
+            <h2>Development Highlights</h2>
             <p>
               Based on the research, I built the redesign around three
               principles:
@@ -309,14 +291,13 @@ function ProjectDetails() {
                     color: "inherit",
                   }}
                 >
-                  Progressive disclosure
+                  REST API Architecture
                 </h3>
                 <p
                   className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed"
                   style={{ margin: 0, color: "inherit" }}
                 >
-                  Show only what's needed for the current task. Advanced
-                  features revealed on demand, not upfront.
+                  Created scalable REST endpoints using Express.
                 </p>
               </div>
               <div className="bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-7 border border-zinc-100 dark:border-zinc-800">
@@ -344,14 +325,13 @@ function ProjectDetails() {
                     color: "inherit",
                   }}
                 >
-                  Opinionated navigation
+                  JWT Authentication
                 </h3>
                 <p
                   className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed"
                   style={{ margin: 0, color: "inherit" }}
                 >
-                  Reduce the sidebar to 6 core items. Group secondary actions in
-                  context panels rather than global nav.
+                  Created scalable REST endpoints using Express.
                 </p>
               </div>
               <div className="bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-7 border border-zinc-100 dark:border-zinc-800">
@@ -379,239 +359,42 @@ function ProjectDetails() {
                     color: "inherit",
                   }}
                 >
-                  Goal-first onboarding
+                  Role Based Authorization
                 </h3>
                 <p
                   className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed"
                   style={{ margin: 0, color: "inherit" }}
                 >
-                  Replace the feature tour with a 3-step "send your first
-                  notification" flow that delivers an aha-moment in under 5
-                  minutes.
+                  Created scalable REST endpoints using Express.
                 </p>
               </div>
             </div>
           </div>
+          <ProjectGallery images={project?.images.slice(1)} />
 
-          <div className="max-w-3xl mx-auto px-6 pb-4 prose-cs">
-            <h2>Process</h2>
-            <h3>Week 1–2 · Information architecture</h3>
-            <p>
-              I ran a card sorting exercise with 12 participants to rebuild the
-              navigation taxonomy from scratch. The 14-item sidebar collapsed to
-              6 primary destinations. I then produced low-fidelity wireframes in
-              Figma for the 8 most-visited screens, running rapid async reviews
-              with the product team using Loom walkthroughs.
-            </p>
-          </div>
+          {/* Reflection */}
+          {project?.reflection && (
+            <div className="max-w-3xl mx-auto px-6 pb-16 prose-cs">
+              <h2>{project.reflection.heading}</h2>
 
-          <div className="max-w-4xl mx-auto px-6 mb-12">
-            <div className="reveal space-y-4">
-              <div className="flex gap-5 bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-100 dark:border-zinc-800">
-                <div className="step-badge shrink-0 mt-0.5">1</div>
-                <div>
-                  <p className="font-display font-bold text-zinc-900 dark:text-white mb-1">
-                    Card sorting + IA rebuild
-                  </p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    Remote card sort with 12 participants via Optimal Workshop.
-                    14 nav items → 6 clear destinations with zero ambiguous
-                    groupings.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-5 bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-100 dark:border-zinc-800">
-                <div className="step-badge shrink-0 mt-0.5">2</div>
-                <div>
-                  <p className="font-display font-bold text-zinc-900 dark:text-white mb-1">
-                    Lo-fi wireframes & async review
-                  </p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    8 key screens sketched in Figma wireframe mode. Async review
-                    via Loom with the product team — 3 iteration rounds over 4
-                    days.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-5 bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-100 dark:border-zinc-800">
-                <div className="step-badge shrink-0 mt-0.5">3</div>
-                <div>
-                  <p className="font-display font-bold text-zinc-900 dark:text-white mb-1">
-                    Hi-fi design & component library
-                  </p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    Full Figma component library built on Auto Layout. 40+
-                    components covering all states (empty, loading, error). Dark
-                    mode tokens included.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-5 bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-100 dark:border-zinc-800">
-                <div className="step-badge shrink-0 mt-0.5">4</div>
-                <div>
-                  <p className="font-display font-bold text-zinc-900 dark:text-white mb-1">
-                    Usability testing & iteration
-                  </p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    5 moderated sessions on the hi-fi prototype. 2 significant
-                    UX issues surfaced and resolved before handoff. SUS score
-                    improved from 54 → 82.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-5 bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-100 dark:border-zinc-800">
-                <div className="step-badge shrink-0 mt-0.5">5</div>
-                <div>
-                  <p className="font-display font-bold text-zinc-900 dark:text-white mb-1">
-                    Handoff & front-end support
-                  </p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    Zeroheight design doc + Tailwind CSS implementation of the
-                    new design tokens. Present during sprint to support the
-                    engineering team on edge cases.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+              {project.reflection.paragraphs?.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
 
-          <div className="max-w-5xl mx-auto px-6 mb-4">
-            <div className="reveal photo-frame w-full h-56 md:h-80 rounded-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
-                alt="High-fidelity Figma screens — new dashboard layout"
-                loading="lazy"
-              />
-            </div>
-            <p className="img-caption">
-              Final hi-fi screens showing the redesigned sidebar, dashboard
-              home, and notification workflow builder.
-            </p>
-          </div>
+              <hr />
 
-          <div className="max-w-5xl mx-auto px-6 mb-12">
-            <div className="reveal grid md:grid-cols-2 gap-4">
-              <div>
-                <div className="photo-frame w-full h-52 rounded-2xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=700&q=80"
-                    alt="Before — original dashboard"
-                    loading="lazy"
-                  />
-                </div>
-                <p className="img-caption mt-2">
-                  Before — 14-item sidebar, no clear entry point
-                </p>
-              </div>
-              <div>
-                <div className="photo-frame w-full h-52 rounded-2xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=700&q=80"
-                    alt="After — redesigned dashboard"
-                    loading="lazy"
-                  />
-                </div>
-                <p className="img-caption mt-2">
-                  After — 6-item sidebar, goal-first onboarding checklist
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="max-w-3xl mx-auto px-6 pb-16 prose-cs">
-            <h2>Key design decisions</h2>
-            <h3>Collapsing the sidebar</h3>
-            <p>
-              The original sidebar mixed primary destinations with contextual
-              actions and account settings indiscriminately. I applied a strict
-              three-tier hierarchy: primary navigation (6 items, always
-              visible), contextual actions (appear in a right panel when
-              relevant), and account/settings (collapsed under an avatar menu).
-              This alone reduced the cognitive entry cost significantly — users
-              knew where they were and where they could go.
-            </p>
-            <h3>The onboarding checklist</h3>
-            <p>
-              Rather than a product tour, I designed a persistent but
-              dismissible checklist embedded in the dashboard home. Three steps:
-              connect a channel, create a workflow, send a test notification.
-              Each step launches an inline mini-wizard that completes within the
-              dashboard without breaking context. In the first month
-              post-launch, 68% of trial users completed all three steps vs 21%
-              previously.
-            </p>
-            <h3>Empty states as teachers</h3>
-            <p>
-              Every empty state in the old design was a blank panel. In the
-              redesign, each empty state includes a one-sentence explanation of
-              what the section does, a primary CTA, and a secondary link to
-              documentation. This reduced support tickets specifically about
-              feature discovery by 35%.
-            </p>
-            <h2>Results</h2>
-            <p>
-              The redesign shipped in week 6, exactly on schedule. Metrics were
-              tracked over the following 6 weeks post-launch compared to the
-              same prior period.
-            </p>
-            <ul>
-              <li>
-                <strong>SUS (System Usability Scale) score:</strong> 54 → 82
-                (+28 points)
-              </li>
-              <li>
-                <strong>Trial-to-paid conversion rate:</strong> +27%
-              </li>
-              <li>
-                <strong>Onboarding completion (3-step flow):</strong> 21% → 68%
-              </li>
-              <li>
-                <strong>Support tickets (onboarding-related):</strong> −35%
-              </li>
-              <li>
-                <strong>Average time to first workflow created:</strong> 18 min
-                → 4 min
-              </li>
-              <li>
-                <strong>Post-launch NPS:</strong> 4.8/5
-              </li>
-            </ul>
-            <blockquote>
               <p>
-                "Eliott completely changed how we think about our onboarding.
-                The checklist alone added 6 figures to our ARR in the first
-                quarter. Exceptionally thorough process and a pleasure to work
-                with."
+                <em>
+                  Interested in a similar project?{" "}
+                  <a href="/#contact">Let's work together</a> — I'm always
+                  excited to build modern, scalable web applications.
+                </em>
               </p>
-            </blockquote>
-            <h2>Reflections</h2>
-            <p>
-              The biggest lesson from this project: most SaaS UX problems aren't
-              about aesthetics, they're about information architecture. The
-              product was capable — users just couldn't find the value fast
-              enough. A focused IA overhaul delivered more measurable ROI than a
-              visual rebrand ever could have.
-            </p>
-            <p>
-              If I were to do it again, I'd push harder for a longer discovery
-              phase. Six weeks is tight for a full dashboard redesign, and we
-              had to make some navigation decisions based on incomplete
-              card-sort data. The results held up, but another round of testing
-              before hi-fi would have given me more confidence on a few
-              borderline calls.
-            </p>
-            <hr />
-            <p>
-              <em>
-                Interested in a similar engagement?{" "}
-                <a href="index.html#contact">Get in touch</a> — I'm available
-                for new projects from Q2 2025.
-              </em>
-            </p>
-          </div>
+            </div>
+          )}
         </article>
 
-        <section className="bg-zinc-50 dark:bg-zinc-900/50 py-16">
+        {/* <section className="bg-zinc-50 dark:bg-zinc-900/50 py-16">
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex items-center justify-between mb-8">
               <h2 className="font-display font-bold text-2xl text-zinc-900 dark:text-white">
@@ -716,7 +499,7 @@ function ProjectDetails() {
               </a>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="py-24">
           <div className="max-w-6xl mx-auto px-6">
@@ -740,12 +523,13 @@ function ProjectDetails() {
                   I'm available for new projects. Tell me about what you're
                   building and let's see if we're a good fit.
                 </p>
-                <a
-                  href="index.html#contact"
+                <HashLink
+                  smooth
+                  to="/#contact"
                   className="inline-flex items-center gap-2 btn-primary bg-accent text-white font-medium px-8 py-3.5 rounded-full hover:bg-accent-light transition-colors"
                 >
-                  Start a project →
-                </a>
+                  Start a Project →
+                </HashLink>
               </div>
             </div>
           </div>

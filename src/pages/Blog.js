@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "../context/theme";
 
 function Blog() {
-  const [dark, setDark] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const dark = theme === "dark";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [active, setActive] = useState("all");
@@ -9,12 +11,6 @@ function Blog() {
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    setDark(savedTheme === "dark" || (!savedTheme && prefersDark));
-
     const handleScroll = () => setScrolled(window.scrollY > 20);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -39,10 +35,6 @@ function Blog() {
       observer.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
 
   return (
     <div
@@ -119,7 +111,7 @@ function Blog() {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => setDark((prev) => !prev)}
+              onClick={toggleTheme}
               className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
               aria-label={dark ? "Light mode" : "Dark mode"}
             >

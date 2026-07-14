@@ -13,7 +13,7 @@ const Contact = () => {
     const payload = { name, email, subject, message };
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/v1/message/send",
+        `${process.env.REACT_APP_API_URL}/api/v1/message/send`,
         payload,
       );
       if (data?.success) {

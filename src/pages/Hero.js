@@ -51,35 +51,50 @@ const Hero = () => {
                 </svg>
               </a>
               <a
-                href="#contact"
+                href="/HARESH_KUMAR_RESUME.pdf"
+                download
                 className="inline-flex items-center gap-2 border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-sm"
               >
-                Get in touch
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 16V4m0 12l-4-4m4 4l4-4M4 20h16"
+                  />
+                </svg>
+                Download Resume
               </a>
             </div>
             <div className="reveal d4 flex gap-8 mt-14 pt-8 border-t border-zinc-100 dark:border-zinc-900">
               <div>
                 <p className="font-display font-bold text-3xl text-zinc-900 dark:text-white">
-                  34+
+                  5+
                 </p>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  Projects done
+                  Full Stack Projects
                 </p>
               </div>
               <div>
                 <p className="font-display font-bold text-3xl text-zinc-900 dark:text-white">
-                  21+
+                  2+
                 </p>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  Happy clients
+                  Years of Learning
                 </p>
               </div>
               <div>
                 <p className="font-display font-bold text-3xl text-zinc-900 dark:text-white">
-                  5y
+                  15+
                 </p>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  Experience
+                  Technologies & Tools
                 </p>
               </div>
             </div>

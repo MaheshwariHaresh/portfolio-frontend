@@ -28,7 +28,9 @@ const Work = () => {
 
   const fetchProjects = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/api/v1/projects");
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/v1/projects`,
+      );
       if (data?.success) {
         setProjects(data?.projects);
       }
@@ -41,6 +43,7 @@ const Work = () => {
   }, []);
 
   const featuredProject = projects[0];
+  console.log("featuredProject", featuredProject);
   const otherProjects = projects.slice(1);
   return (
     <div ref={workRef} className="max-w-6xl mx-auto px-6">
@@ -66,7 +69,7 @@ const Work = () => {
           <article className="card-h reveal d1 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent md:row-span-2">
             <div className="pf w-full h-64 md:h-80">
               <img
-                src={featuredProject?.coverImage}
+                src={featuredProject?.thumbnailImage}
                 alt={featuredProject?.title}
                 loading="lazy"
               />
@@ -82,7 +85,7 @@ const Work = () => {
                   </span>
                 ))}
               </div>
-              <a href="/project-details">
+              <a href={`/project/${featuredProject?.slug}`}>
                 <h3 className="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-2">
                   {featuredProject?.title}
                 </h3>
@@ -97,7 +100,7 @@ const Work = () => {
                 {featuredProject?.shortDescription}
               </p>
               <a
-                href="/project-details"
+                href={`/project/${featuredProject?.slug}`}
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white nl"
               >
                 Explore Project{" "}
@@ -124,7 +127,7 @@ const Work = () => {
           <article className="card-h reveal d2 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
             <div className="pf w-full h-48">
               <img
-                src={project.coverImage}
+                src={project?.thumbnailImage}
                 alt={project.title}
                 loading="lazy"
               />
@@ -140,7 +143,7 @@ const Work = () => {
                   </span>
                 ))}
               </div>
-              <a href="/project-details">
+              <a href={`/project/${project.slug}`}>
                 <h3 className="font-display font-bold text-xl text-zinc-900 dark:text-white mb-1.5">
                   {project.title}
                 </h3>
@@ -149,7 +152,7 @@ const Work = () => {
                 {project.shortDescription}
               </p>
               <a
-                href="/project-details"
+                href={`/project/${project.slug}`}
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white nl"
               >
                 Explore Project →

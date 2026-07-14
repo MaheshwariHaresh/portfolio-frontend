@@ -1,11 +1,13 @@
+import { useTheme } from "../context/theme";
+
 const Header = ({
-  dark,
-  setDark,
   mobileMenuOpen,
   setMobileMenuOpen,
   activeSection,
   scrolled,
 }) => {
+  const { theme, toggleTheme } = useTheme();
+  const dark = theme === "dark";
   return (
     <div>
       <nav
@@ -57,7 +59,7 @@ const Header = ({
               About
             </a>
           </li>
-          <li>
+          {/* <li>
             <a
               href="#reviews"
               className={`nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors ${
@@ -68,8 +70,8 @@ const Header = ({
             >
               Reviews
             </a>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <a
               href="#blog"
               className={`nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors ${
@@ -80,7 +82,7 @@ const Header = ({
             >
               Blog
             </a>
-          </li>
+          </li> */}
           <li>
             <a
               href="#contact"
@@ -98,7 +100,7 @@ const Header = ({
         <div className="flex items-center gap-3">
           {/* dark toggle */}
           <button
-            onClick={() => setDark(!dark)}
+            onClick={toggleTheme}
             className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
             aria-label={dark ? "Light mode" : "Dark mode"}
           >

@@ -2,35 +2,21 @@ import { useState, useEffect, useRef } from "react";
 import About from "./About";
 import Contact from "./Contact";
 import Footer from "../components/Footer";
-import Testimonials from "./Testimonials";
 import Work from "./Work";
 import Services from "./Services";
 import Hero from "./Hero";
 import Header from "../components/Header";
+import { useTheme } from "../context/theme";
 
 export default function Home() {
-  const [dark, setDark] = useState(false);
+  const { theme } = useTheme();
+  const dark = theme === "dark";
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const observerRef = useRef(null);
   const yearRef = useRef(null);
-
-  // Initialize dark mode from localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const isDark = savedTheme === "dark" || (!savedTheme && prefersDark);
-    setDark(isDark);
-  }, []);
-
-  // Update localStorage and document when dark mode changes
-  useEffect(() => {
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
 
   // Update year in footer
   useEffect(() => {
@@ -154,8 +140,6 @@ export default function Home() {
           }`}
         >
           <Header
-            dark={dark}
-            setDark={setDark}
             mobileMenuOpen={mobileMenuOpen}
             setMobileMenuOpen={setMobileMenuOpen}
             activeSection={activeSection}
@@ -191,12 +175,12 @@ export default function Home() {
           </section>
 
           {/* ═══ TESTIMONIALS ═══ */}
-          <section id="reviews" className="py-24">
+          {/* <section id="reviews" className="py-24">
             <Testimonials />
-          </section>
+          </section> */}
 
           {/* ═══ BLOG ═══ */}
-          <section id="blog" className="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+          {/* <section id="blog" className="py-24 bg-zinc-50 dark:bg-zinc-900/40">
             <div className="max-w-6xl mx-auto px-6">
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
                 <div>
@@ -320,7 +304,7 @@ export default function Home() {
                 </article>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ═══ CONTACT ═══ */}
           <section id="contact" className="py-24">

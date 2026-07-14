@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "../context/theme";
 
 const filterOptions = [
   { value: "all", label: "All (9)" },
@@ -111,7 +112,8 @@ const allProjects = [
 ];
 
 function Projects() {
-  const [dark, setDark] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const dark = theme === "dark";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [filter, setFilter] = useState("all");
@@ -119,12 +121,6 @@ function Projects() {
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    setDark(savedTheme === "dark" || (!savedTheme && prefersDark));
-
     const handleScroll = () => setScrolled(window.scrollY > 20);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -149,14 +145,6 @@ function Projects() {
       observer.disconnect();
     };
   }, []);
-
-  const handleThemeToggle = () => {
-    setDark((prevDark) => {
-      const nextDark = !prevDark;
-      window.localStorage.setItem("theme", nextDark ? "dark" : "light");
-      return nextDark;
-    });
-  };
 
   const visibleCount =
     filter === "all"
@@ -230,7 +218,7 @@ function Projects() {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={handleThemeToggle}
+              onClick={toggleTheme}
               className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
               aria-label={dark ? "Light mode" : "Dark mode"}
             >
