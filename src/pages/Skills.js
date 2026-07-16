@@ -6,8 +6,11 @@ import {
   FaBootstrap,
   FaCss3Alt,
   FaKey,
+  FaGoogle,
+  FaLink,
 } from "react-icons/fa";
 
+import { MdArchitecture, MdEmail } from "react-icons/md";
 import {
   SiJavascript,
   SiExpress,
@@ -17,6 +20,8 @@ import {
   SiVercel,
   SiTailwindcss,
   SiHtml5,
+  SiPassport,
+  SiCloudinary,
 } from "react-icons/si";
 
 import { VscVscode } from "react-icons/vsc";
@@ -38,8 +43,12 @@ const skillGroups = [
     skills: [
       { name: "Node.js", icon: <FaNodeJs /> },
       { name: "Express.js", icon: <SiExpress /> },
-      { name: "REST API", icon: "🔗" },
-      { name: "JWT", icon: <FaKey /> },
+      { name: "REST APIs", icon: <FaLink /> },
+      { name: "JWT Authentication", icon: <FaKey /> },
+      { name: "Passport.js", icon: <SiPassport /> },
+      { name: "Google & Facebook OAuth", icon: <FaGoogle /> },
+      { name: "Nodemailer", icon: <MdEmail /> },
+      { name: "MVC Architecture", icon: <MdArchitecture /> },
     ],
   },
   {
@@ -56,6 +65,7 @@ const skillGroups = [
       { name: "GitHub", icon: <FaGithub /> },
       { name: "Postman", icon: <SiPostman /> },
       { name: "VS Code", icon: <VscVscode /> },
+      { name: "Cloudinary", icon: <SiCloudinary /> },
       { name: "Vercel", icon: <SiVercel /> },
     ],
   },
@@ -63,7 +73,7 @@ const skillGroups = [
 
 function Skills() {
   return (
-    <section className="max-w-6xl mx-auto px-6">
+    <div className="max-w-6xl mx-auto px-6">
       <div className="text-center mb-16">
         <p className="text-xs uppercase tracking-[5px] text-accent font-semibold mb-3">
           Tech Stack
@@ -138,7 +148,7 @@ function Skills() {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 

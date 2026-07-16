@@ -34,36 +34,44 @@ export default function Home() {
       updateSection();
     };
 
+    handleScroll(); // <-- IMPORTANT
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // const updateSection = () => {
+  //   const atBottom =
+  //     window.innerHeight + window.scrollY >= document.body.scrollHeight - 60;
+  //   if (atBottom) {
+  //     setActiveSection("contact");
+  //     return;
+  //   }
+  //   const ids = ["hero", "services", "work", "about", "skills", "contact"];
+  //   for (const id of ids) {
+  //     const el = document.getElementById(id);
+  //     if (el && window.scrollY >= el.offsetTop - 130) {
+  //       setActiveSection(id);
+  //       return;
+  //     }
+  //   }
+  // };
+
   const updateSection = () => {
-    const atBottom =
-      window.innerHeight + window.scrollY >= document.body.scrollHeight - 60;
-    if (atBottom) {
-      setActiveSection("contact");
-      return;
-    }
+    const sections = document.querySelectorAll("main section");
 
-    const ids = [
-      "contact",
-      "blog",
-      "reviews",
-      "about",
-      "work",
-      "services",
-      "hero",
-    ];
-    for (const id of ids) {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 130) {
-        setActiveSection(id);
-        return;
+    let current = "hero";
+
+    sections.forEach((section) => {
+      const top = section.offsetTop - 150;
+      const bottom = top + section.offsetHeight;
+
+      if (window.scrollY >= top && window.scrollY < bottom) {
+        current = section.id;
       }
-    }
-  };
+    });
 
+    setActiveSection(current);
+  };
   return (
     <div className={`${dark ? "dark" : ""} scroll-smooth`}>
       <style>{`
@@ -166,7 +174,7 @@ export default function Home() {
           </section> */}
 
           {/* ═══ BLOG ═══ */}
-          {/* <section id="blog" className="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+          {/* { <section id="blog" className="py-24 bg-zinc-50 dark:bg-zinc-900/40">
             <div className="max-w-6xl mx-auto px-6">
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
                 <div>
@@ -290,7 +298,7 @@ export default function Home() {
                 </article>
               </div>
             </div>
-          </section> */}
+          </section>  */}
 
           {/* ═══ CONTACT ═══ */}
           <section id="contact" className="py-24">

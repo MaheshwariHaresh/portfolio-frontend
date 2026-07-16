@@ -25,6 +25,18 @@ const Header = ({
         <ul className="hidden md:flex items-center gap-8 text-sm">
           <li>
             <a
+              href="#hero"
+              className={`nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors ${
+                activeSection === "hero"
+                  ? "on !text-zinc-900 dark:!text-white"
+                  : ""
+              }`}
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
               href="#services"
               className={`nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors ${
                 activeSection === "services"
@@ -205,6 +217,15 @@ const Header = ({
       {mobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900 animate-in fade-in slide-in-from-top-2 duration-200">
           <ul className="flex flex-col px-6 py-5 gap-4 text-sm font-medium">
+            <li>
+              <a
+                href="#hero"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
+              >
+                Home
+              </a>
+            </li>
             <li>
               <a
                 href="#services"
