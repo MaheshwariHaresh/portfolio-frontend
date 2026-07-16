@@ -1,30 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import useRevealOnScroll from "../hooks/useRevealOnScroll";
 
 const Work = () => {
   const [projects, setProjects] = useState([]);
-
-  // Intersection Observer for reveal animations
   const workRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    const elements = workRef.current.querySelectorAll(".reveal");
-
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, [projects]);
+  useRevealOnScroll(workRef);
 
   const fetchProjects = async () => {
     try {
@@ -43,7 +25,6 @@ const Work = () => {
   }, []);
 
   const featuredProject = projects[0];
-  console.log("featuredProject", featuredProject);
   const otherProjects = projects.slice(1);
   return (
     <div ref={workRef} className="max-w-6xl mx-auto px-6">
@@ -56,12 +37,12 @@ const Work = () => {
             Featured Projects
           </h2>
         </div>
-        <a
-          href="projects.html"
+        {/* <a
+          href="/projects"
           className="reveal d1 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors self-start sm:self-auto nl"
         >
           All projects →
-        </a>
+        </a> */}
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">

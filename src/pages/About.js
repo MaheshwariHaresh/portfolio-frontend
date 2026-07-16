@@ -36,87 +36,26 @@ const About = () => {
             responsive frontends, or integrating databases, I strive to deliver
             solutions that are efficient, scalable, and ready for production.
           </p>
-          <div className="reveal d4">
-            <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-3">
-              Technologies I Work With
-            </p>
-            <div
-              className="flex flex-wrap gap-2"
-              role="list"
-              aria-label="Skills"
-            >
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                MongoDB
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                Express.js
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                React.js
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                Node.js
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                JavaScript (ES6+)
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                Tailwind CSS
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                MySQL
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                REST APIs
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                JWT Authentication
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                Git & GitHub
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                Postman
-              </span>
-              <span
-                role="listitem"
-                className="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent"
-              >
-                Firebase Authentication
-              </span>
+          <div className="reveal d4 flex flex-wrap gap-8 pt-8">
+            <div>
+              <h3 className="text-3xl font-bold text-accent">15+</h3>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Technologies
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold text-accent">5+</h3>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Full Stack Projects
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold text-accent">100%</h3>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Responsive Design
+              </p>
             </div>
           </div>
         </div>

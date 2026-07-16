@@ -53,7 +53,9 @@ const Contact = () => {
 
             <div className="reveal d3 flex flex-col gap-4">
               <a
-                href="mailto:hello@eliott.dev"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=maheshwariharesh060@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors"
               >
                 <span className="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">

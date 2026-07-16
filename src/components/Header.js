@@ -71,18 +71,18 @@ const Header = ({
               Reviews
             </a>
           </li> */}
-          {/* <li>
+          <li>
             <a
-              href="#blog"
+              href="#skills"
               className={`nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors ${
-                activeSection === "blog"
+                activeSection === "skills"
                   ? "on !text-zinc-900 dark:!text-white"
                   : ""
               }`}
             >
-              Blog
+              Skills
             </a>
-          </li> */}
+          </li>
           <li>
             <a
               href="#contact"
@@ -232,7 +232,7 @@ const Header = ({
                 About
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="#reviews"
                 onClick={() => setMobileMenuOpen(false)}
@@ -240,14 +240,14 @@ const Header = ({
               >
                 Reviews
               </a>
-            </li>
+            </li> */}
             <li>
               <a
-                href="#blog"
+                href="#skills"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
               >
-                Blog
+                Skills
               </a>
             </li>
             <li>

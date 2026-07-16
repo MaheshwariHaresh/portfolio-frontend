@@ -7,6 +7,8 @@ import Services from "./Services";
 import Hero from "./Hero";
 import Header from "../components/Header";
 import { useTheme } from "../context/theme";
+import Skills from "./Skills";
+import useRevealOnScroll from "../hooks/useRevealOnScroll";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -15,8 +17,8 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const observerRef = useRef(null);
   const yearRef = useRef(null);
+  useRevealOnScroll();
 
   // Update year in footer
   useEffect(() => {
@@ -34,26 +36,6 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Intersection Observer for reveal animations
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observerRef.current.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
-    );
-
-    const revealElements = document.querySelectorAll(".reveal");
-    revealElements.forEach((el) => observerRef.current.observe(el));
-
-    return () => observerRef.current?.disconnect();
   }, []);
 
   const updateSection = () => {
@@ -174,6 +156,10 @@ export default function Home() {
             <About />
           </section>
 
+          {/* ═══ SKILLS ═══ */}
+          <section id="skills" className="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+            <Skills />
+          </section>
           {/* ═══ TESTIMONIALS ═══ */}
           {/* <section id="reviews" className="py-24">
             <Testimonials />
