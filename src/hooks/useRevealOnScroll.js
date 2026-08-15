@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 const DEFAULT_OPTIONS = {
   threshold: 0.1,
@@ -6,6 +6,15 @@ const DEFAULT_OPTIONS = {
 };
 
 export default function useRevealOnScroll(rootRef = null, options = {}) {
+  const mergedOptions = useMemo(
+    () => ({
+      ...DEFAULT_OPTIONS,
+      ...options,
+    }),
+    [options?.threshold, options?.rootMargin],
+  );
+  const observedElementsRef = useRef(new WeakSet());
+
   useEffect(() => {
     if (
       typeof window === "undefined" ||
@@ -14,16 +23,22 @@ export default function useRevealOnScroll(rootRef = null, options = {}) {
       return undefined;
     }
 
-    const mergedOptions = { ...DEFAULT_OPTIONS, ...options };
     const targetRoot = rootRef?.current ?? document.body;
+
+    if (!targetRoot) {
+      return undefined;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observer.unobserve(entry.target);
+          if (!entry.isIntersecting) {
+            return;
           }
+
+          entry.target.classList.add("in");
+          observedElementsRef.current.delete(entry.target);
+          observer.unobserve(entry.target);
         });
       },
       {
@@ -34,10 +49,19 @@ export default function useRevealOnScroll(rootRef = null, options = {}) {
 
     const observeRevealElements = () => {
       const elements = targetRoot.querySelectorAll?.(".reveal") ?? [];
+
       elements.forEach((element) => {
-        if (!element.classList.contains("in")) {
-          observer.observe(element);
+        if (element.classList.contains("in")) {
+          observedElementsRef.current.delete(element);
+          return;
         }
+
+        if (observedElementsRef.current.has(element)) {
+          return;
+        }
+
+        observedElementsRef.current.add(element);
+        observer.observe(element);
       });
     };
 
@@ -55,6 +79,7 @@ export default function useRevealOnScroll(rootRef = null, options = {}) {
     return () => {
       observer.disconnect();
       mutationObserver.disconnect();
+      observedElementsRef.current = new WeakSet();
     };
-  }, [rootRef, options]);
+  }, [rootRef, mergedOptions.threshold, mergedOptions.rootMargin]);
 }

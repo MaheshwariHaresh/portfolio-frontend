@@ -10,7 +10,13 @@ import {
   FaLink,
 } from "react-icons/fa";
 
-import { MdArchitecture, MdEmail } from "react-icons/md";
+import {
+  MdArchitecture,
+  MdEmail,
+  MdHub,
+  MdSyncAlt,
+  MdAccountTree,
+} from "react-icons/md";
 import {
   SiJavascript,
   SiExpress,
@@ -58,6 +64,15 @@ const skillGroups = [
       { name: "MySQL", icon: <SiMysql /> },
     ],
   },
+  {
+    title: "Microservices",
+    skills: [
+      { name: "NATS", icon: <MdHub /> },
+      { name: "NATS JetStream", icon: <MdSyncAlt /> },
+      { name: "Event-Driven Architecture", icon: <MdAccountTree /> },
+    ],
+  },
+
   {
     title: "Tools",
     skills: [

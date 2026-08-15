@@ -141,6 +141,7 @@ export default function Home() {
           {/* ═══ HERO ═══ */}
           <section
             id="hero"
+            snip
             className="relative min-h-screen flex items-center pt-16 overflow-hidden"
           >
             <Hero />
