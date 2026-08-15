@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const DEFAULT_OPTIONS = {
   threshold: 0.1,
@@ -6,13 +6,10 @@ const DEFAULT_OPTIONS = {
 };
 
 export default function useRevealOnScroll(rootRef = null, options = {}) {
-  const mergedOptions = useMemo(
-    () => ({
-      ...DEFAULT_OPTIONS,
-      ...options,
-    }),
-    [options?.threshold, options?.rootMargin],
-  );
+  const {
+    threshold = DEFAULT_OPTIONS.threshold,
+    rootMargin = DEFAULT_OPTIONS.rootMargin,
+  } = options;
   const observedElementsRef = useRef(new WeakSet());
 
   useEffect(() => {
@@ -42,8 +39,8 @@ export default function useRevealOnScroll(rootRef = null, options = {}) {
         });
       },
       {
-        threshold: mergedOptions.threshold,
-        rootMargin: mergedOptions.rootMargin,
+        threshold,
+        rootMargin,
       },
     );
 
@@ -81,5 +78,5 @@ export default function useRevealOnScroll(rootRef = null, options = {}) {
       mutationObserver.disconnect();
       observedElementsRef.current = new WeakSet();
     };
-  }, [rootRef, mergedOptions.threshold, mergedOptions.rootMargin]);
+  }, [rootRef, threshold, rootMargin]);
 }
