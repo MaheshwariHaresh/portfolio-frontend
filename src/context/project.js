@@ -12,7 +12,7 @@ const ProjectProvider = ({ children }) => {
     const fetchProjects = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/v1/project/projects`,
+          `${process.env.REACT_APP_API_URL}/api/v1/projects`,
         );
         setProjects(data?.projects);
       } catch (err) {

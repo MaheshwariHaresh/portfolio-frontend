@@ -96,6 +96,7 @@ const ProjectCard = ({
         border border-zinc-100 dark:border-zinc-800
         hover:border-accent
         transition-all duration-300
+        hover:!border-accent
         ${className}`}
     >
       {/* Image */}
@@ -160,31 +161,74 @@ const ProjectCard = ({
           {project?.shortDescription}
         </p>
 
-        {/* Explore */}
-        <a
-          href={`/project/${project?.slug}`}
-          className="inline-flex items-center gap-1.5
+        <div className="flex items-center">
+          {/* Explore Project */}
+          <a
+            href={`/project/${project?.slug}`}
+            className="inline-flex items-center gap-1.5
             text-sm font-medium
             text-zinc-900 dark:text-white
-            hover:text-accent
+            hover:!text-accent
             transition-colors"
-        >
-          Explore Project
-          <svg
-            className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
-        </a>
+            Explore Project
+            <svg
+              className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+
+          {/* Live Demo */}
+          {project?.liveLink && (
+            <a
+              href={project.liveLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Live Demo"
+              className="ml-auto inline-flex items-center justify-center
+    w-9 h-9 rounded-full
+    bg-zinc-200 dark:bg-zinc-800
+    text-zinc-700 dark:text-zinc-300
+    hover:!bg-orange-500 hover:!text-white
+    transition-all duration-300"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14 3h7v7"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10 14L21 3"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"
+                />
+              </svg>
+            </a>
+          )}
+        </div>
       </div>
     </article>
   );

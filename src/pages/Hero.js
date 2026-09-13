@@ -102,9 +102,9 @@ const Hero = () => {
 
           <div className="reveal d2 flex justify-center md:justify-end">
             <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
-              <div className="pf w-full h-full rounded-3xl">
+              <div className="pf w-full h-full rounded-3xl ">
                 <img
-                  src="/images/haresh-profile.jpg"
+                  src="/images/profile.jpeg"
                   alt="Haresh Kumar — Mern Stack Developer"
                   loading="eager"
                 />
